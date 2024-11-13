@@ -1,0 +1,51 @@
+{
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "eslint:recommended",
+    // "@typescript-eslint/recommended",
+    "plugin:import/typescript",
+    "airbnb-base",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "env": {
+    "es2021": true,
+    "node": true
+  },
+  "rules": {
+    "no-constant-condition": ["warn", { "checkLoops": false }],
+    "no-nested-ternary": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-member-accessibility": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-shadow": ["error", { "allow": ["_"] }],
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      { "argsIgnorePattern": "^_" }
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never",
+        "tsx": "never",
+        "js": "never",
+        "jsx": "never"
+      }
+    ],
+    "import/no-unresolved": "off",
+    "import/prefer-default-export": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  }
+}
