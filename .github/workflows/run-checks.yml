@@ -1,0 +1,38 @@
+name: Code checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        id: cache
+        with:
+          path: "**/node_modules"
+          key: npm-v1-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: npm-v1-
+
+      - name: Install dependencies
+        run: npm ci
+        if: steps.cache.outputs.cache-hit != 'true'
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type check
+        run: npm run type-check
