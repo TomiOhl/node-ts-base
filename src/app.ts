@@ -24,6 +24,8 @@ const gracefulShutdown = async (signal: string) => {
 process.once("SIGTERM", () => gracefulShutdown("SIGTERM"));
 process.once("SIGINT", () => gracefulShutdown("SIGINT"));
 
+console.log("hello");
+
 // Start server
 app.listen(config.port, () => {
   guildLogger.info(`Server listening at http://localhost:${config.port}`);
