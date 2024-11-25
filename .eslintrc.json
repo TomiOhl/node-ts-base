@@ -2,9 +2,8 @@
   "plugins": ["@typescript-eslint"],
   "extends": [
     "eslint:recommended",
-    // "@typescript-eslint/recommended",
-    "plugin:import/typescript",
     "airbnb-base",
+    "plugin:import/typescript",
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",
@@ -28,6 +27,7 @@
       "warn",
       { "argsIgnorePattern": "^_" }
     ],
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
     "import/extensions": [
       "error",
       "ignorePackages",
