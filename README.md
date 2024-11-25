@@ -7,7 +7,7 @@ The app in this repository is a minimalistic NodeJS/Express backend written in T
 To run the project you need:
 
 - [Node.js](https://nodejs.org) development environment, version 14.13.1 or newer.
-- A file named `.env`. An example can be found in the project's root folder.
+- A file named `.env`. An example can be found in the project's root folder named [`.env.example`](.env.example).
 
 ## Usage
 
