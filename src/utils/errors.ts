@@ -1,5 +1,4 @@
-import axios from "axios";
-import type { Response } from "express";
+import type { NextFunction, Request, Response } from "express";
 import guildLogger from "./logger.js";
 
 class ErrorWithCode extends Error {
@@ -11,18 +10,21 @@ class ErrorWithCode extends Error {
   }
 }
 
-const handleError = (message: string, error: any, res: Response): void => {
-  const processedError =
-    axios.isAxiosError(error) && error?.response?.data
-      ? error.response.data
-      : error instanceof Error
-        ? error.message
-        : error;
-  res.status(error instanceof ErrorWithCode ? error.code : 500).json({
-    message,
-    error: processedError,
-  });
-  guildLogger.error(message, processedError);
-};
+const handleControllerError =
+  <Res extends Response, Req extends Request>(
+    controller: (req: Req, res: Res, next: NextFunction) => Promise<void>
+  ) =>
+  async (req: Req, res: Res, next: NextFunction) => {
+    try {
+      await controller(req, res, next);
+    } catch (error) {
+      guildLogger.warn("Controller error", {
+        error,
+        url: req.url,
+        correlationId: req.headers["x-correlation-id"],
+      });
+      next(error);
+    }
+  };
 
-export { ErrorWithCode, handleError };
+export { ErrorWithCode, handleControllerError };

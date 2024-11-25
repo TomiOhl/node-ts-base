@@ -3,6 +3,8 @@ import helloRoutes from "./routes/hello.js";
 
 const router = Router();
 
-router.use("/api/hello", helloRoutes);
+router.use("/api", router);
+
+helloRoutes(router);
 
 export default router;

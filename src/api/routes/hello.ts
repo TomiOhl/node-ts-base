@@ -1,8 +1,12 @@
 import { Router } from "express";
 import * as helloController from "../../controllers/helloController.js";
+import { handleControllerError } from "../../utils/errors.js";
+import { useRouter } from "../../utils/index.js";
 
 const router = Router();
 
-router.get("/", helloController.hello);
+export default (app: Router) => {
+  useRouter(app, "/hello", router);
 
-export default router;
+  router.get("/", handleControllerError(helloController.hello));
+};

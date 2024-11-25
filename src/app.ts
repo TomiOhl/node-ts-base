@@ -3,6 +3,7 @@ import express from "express";
 import correlator from "express-correlation-id";
 import router from "./api/index.js";
 import config from "./config.js";
+import { errorHandler } from "./middlewares/errorHandler.js";
 import guildLogger from "./utils/logger.js";
 
 const app = express();
@@ -14,6 +15,9 @@ app.use(correlator());
 
 // Routes
 app.use(router);
+
+// Error handling
+app.use(errorHandler);
 
 // Graceful shutdown handler
 const gracefulShutdown = async (signal: string) => {
