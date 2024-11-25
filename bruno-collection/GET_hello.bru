@@ -1,0 +1,15 @@
+meta {
+  name: /hello
+  type: http
+  seq: 96
+}
+
+get {
+  url: {{base-url}}/api/hello?name={{name}}
+  body: none
+  auth: none
+}
+
+vars:pre-request {
+  name:
+}
